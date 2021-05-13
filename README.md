@@ -21,6 +21,13 @@
 16. There are functions like distanceTo() which is applied on Object3D objects to get its position beteween two points or objects.
 16. There are functions like normalize() which is applied on Object3D objects to convert vectors into unit vectors.
 
+// Animation
+17. Animation is doing transitions over a period of time.
+18. We can perform animations on both Objects and Camera.
+19. We use reequestAnimationFrame to know when a transition can be done my the device.
+20. Depending on the refresh rate of the screen the requestAnimationFrame may be called more times.
+21. To fix this issue we use some techniques - Date.now() or Threejs Clock. example present in code.
+22. For more complex amimations we can we external libraries like GSAP. example present in code.
 
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
