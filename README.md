@@ -8,3 +8,18 @@
 8. We need to provide the canvas DOM reference to WebGL Renderer
 8. WebGL Renderer will resize the canvas based on the scene size once we set the size
 9. Wiew your very first WebGL Render on the HTML.
+
+## Setup
+Download [Node.js](https://nodejs.org/en/download/).
+Run this followed commands:
+
+``` bash
+# Install dependencies (only the first time)
+npm install
+
+# Run the local server at localhost:8080
+npm run dev
+
+# Build for production in the dist/ directory
+npm run build
+```
