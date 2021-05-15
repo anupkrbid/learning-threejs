@@ -1,9 +1,16 @@
 import './style.css';
 import * as THREE from 'three';
-import gsap from 'gsap';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 console.log(THREE);
-console.log(gsap);
+
+// Cursor Event
+// const cursor = { x: 0, y: 0 };
+// window.addEventListener('mousemove', event => {
+//     cursor.x = (event.clientX / size.width) - 0.5;
+//     cursor.y = - ((event.clientY / size.height) - 0.5);
+//     // console.log(cursor);
+// });
 
 // Scene
 const scene = new THREE.Scene();
@@ -25,12 +32,16 @@ const size = {
     width: 800,
     height: 600
 };
-const camera = new THREE.PerspectiveCamera(75, size.width / size.height); // degree // Field of View , // aspect ration
-camera.position.z = 3; // 3 units
+const aspectRatio = size.width / size.height;
+const camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 100); // degree // Vertical Field of View , // aspect ratio, // how close the obbject tot he camera can be rendered, // how far it can be rendered 
+// const camera = new THREE.OrthographicCamera(-1 * aspectRatio, 1 * aspectRatio, 1, -1, 0.1, 100); 
+// camera.position.x = 2; // 2 units
+// camera.position.y = 2; // 2 units
+camera.position.z = 3; // 2 units
 scene.add(camera);
 
 // camera.lookAt(new THREE.Vector3(1, 1, 0));
-// camera.lookAt(mesh.position);
+camera.lookAt(mesh.position);
 
 // Renderer
 const canvas = document.querySelector('.webgl');
@@ -40,36 +51,30 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(size.width, size.height);
 renderer.render(scene, camera);
 
-// Time
-// let time = Date.now();
+// Controls
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+// controls.target.x = 3;
+// controls.update();
 
 // Clock
 const clock = new THREE.Clock();
 
-// Animations
-gsap.to(mesh.position, { 
-    x: 2,
-    duration: 1,
-    delay: 1
-});
-
 const tick = () => {
     // Time
-    // const currentTime = Date.now();
-    // const deltaTime = currentTime  - time;
-    // time = currentTime;
-
-    // const elapsedTime = clock.getElapsedTime();
+    const elapsedTime = clock.getElapsedTime();
 
     // Update Object Position
-    // mesh.rotation.y += 0.001 * deltaTime;
     // mesh.rotation.y = elapsedTime; // to make it 1 revolution/sec  = elapsedTime * Math.PI * 2;
-    // mesh.position.x = Math.sin(elapsedTime); 
-    // mesh.position.y = Math.cos(elapsedTime); 
 
-    // camera.position.x = Math.sin(elapsedTime); 
-    // camera.position.y = Math.cos(elapsedTime); 
+    // Update Camera
+    // camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 3;
+    // camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3;
+    // camera.position.y = cursor.y * 3;
     // camera.lookAt(mesh.position);
+
+    // Update Controls
+    controls.update();
 
     // Render
     renderer.render(scene, camera);
